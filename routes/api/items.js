@@ -39,5 +39,22 @@ router.post('/', (req, res) => {
   newItem.save().then(item => res.json(item));
 });
 
+// @route DELETE api/items/:id
+// @desc Delete A Post
+// @access Piblic
+router.delete('/:id', (req, res) => {
+  // Search for the item by id.
+  // req.params.id will find it from the URI
+  Item.findById(req.params.id)
+    .then(
+      item =>
+        // Returns the item that we're searching for. Returns a promise.
+        item.remove().then(() => res.json({ success: true }))
+      // .remove() gives us a promise. Then return a response.
+    )
+    // If we pass in an id that doesn't exist then we should get a promise reject
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 // Must export module or else no other file will be able to read this.
 module.exports = router;
