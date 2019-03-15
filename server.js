@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const items = require('./routes/api/items');
+
 // Initialize express into a variable
 const app = express();
 
@@ -19,10 +21,12 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
+// Use Routes
+// This is saying that anything that uses the first parameter will refer to items variable
+app.use('/api/items', items);
+
 // Need to run server. May deploy this to Heroku. Needs to add env.PORT
 const port = process.env.PORT || 5000;
 
 // Want our app to listen on that port. Can take a callback if we want something to happen.
-app.removeAllListeners(port, () =>
-  console.log(`Server started on port ${port}`)
-);
+app.listen(port, () => console.log(`Server started on port ${port}`));

@@ -15,4 +15,4 @@ const ItemSchema = new Schema({
 });
 
 // Export so that we can bring into other files.
-module.exports = Item = mongoose.model('item', ItemSchema);
+module.exports = Item = mongoose.model('item', ItemSchema); // (name, schema)
