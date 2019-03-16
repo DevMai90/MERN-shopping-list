@@ -26,12 +26,13 @@ class AppNavbar extends Component {
           <Container>
             <NavbarBrand href="/">Shopping List</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar />
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="https://github.com/devmai90">Github</NavLink>
-              </NavItem>
-            </Nav>
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="https://github.com/devmai90">Github</NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
           </Container>
         </Navbar>
       </div>
