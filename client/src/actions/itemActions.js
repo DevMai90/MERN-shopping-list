@@ -9,3 +9,11 @@ export const getItems = () => {
     type: GET_ITEMS
   };
 };
+
+// Must send id as a payload to the item reducer
+export const deleteItem = id => {
+  return {
+    type: DELETE_ITEM,
+    payload: id
+  };
+};
