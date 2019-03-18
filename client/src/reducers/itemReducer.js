@@ -1,16 +1,17 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types';
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING
+} from '../actions/types';
 import uuid from 'uuid';
 // This is where our state will live.
 // Will be accessible through the provider as item.items
 // Will check our actions here
 
 const initialState = {
-  items: [
-    { id: uuid(), name: 'Eggs' },
-    { id: uuid(), name: 'Chicken' },
-    { id: uuid(), name: 'Turkey' },
-    { id: uuid(), name: 'Quail' }
-  ]
+  items: [],
+  loading: false
 };
 
 // Need to evaluate action types.
@@ -21,16 +22,25 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
       return {
-        ...state
+        // Change loading back to false after we've made our request and get our action.payload back
+        ...state,
+        items: action.payload,
+        loading: false
       };
     case ADD_ITEM:
       return {
-        ...state
+        ...state,
+        items: [action.payload, ...state.items]
       };
     case DELETE_ITEM:
       return {
         ...state,
         items: state.items.filter(item => item.id !== action.payload)
+      };
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true
       };
     default:
       return state;

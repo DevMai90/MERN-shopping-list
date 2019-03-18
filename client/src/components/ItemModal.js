@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
 import uuid from 'uuid';
+import PropTypes from 'prop-types';
 
 class ItemModal extends Component {
   state = {
@@ -35,6 +36,9 @@ class ItemModal extends Component {
     };
 
     // Add item via add item action
+    this.props.addItem(newItem);
+
+    this.toggle();
   };
 
   render() {
@@ -74,4 +78,15 @@ class ItemModal extends Component {
   }
 }
 
-export default connect()(ItemModal);
+const mapStateToProps = state => ({
+  item: state.item
+});
+
+ItemModal.propTypes = {
+  addItem: PropTypes.func.isRequired
+};
+
+export default connect(
+  mapStateToProps,
+  { addItem }
+)(ItemModal);
