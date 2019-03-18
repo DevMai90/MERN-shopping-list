@@ -30,11 +30,13 @@ export const addItem = item => dispatch => {
 };
 
 // Must send id as a payload to the item reducer
-export const deleteItem = id => {
-  return {
-    type: DELETE_ITEM,
-    payload: id
-  };
+export const deleteItem = id => dispatch => {
+  axios.delete(`/api/items/${id}`).then(res =>
+    dispatch({
+      type: DELETE_ITEM,
+      payload: id
+    })
+  );
 };
 
 export const setItemsLoading = () => {
