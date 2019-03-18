@@ -8,6 +8,8 @@ import axios from 'axios';
 // Thunks are functions that return a function
 export const getItems = () => dispatch => {
   // Return to the reducer...
+  // loading is set to true before we make the request.
+  // Will change back to false when we make the request and get the item back
   dispatch(setItemsLoading());
 
   axios.get('/api/items').then(res =>
@@ -18,18 +20,20 @@ export const getItems = () => dispatch => {
   );
 };
 
+export const addItem = item => dispatch => {
+  axios.post('/api/items', item).then(res =>
+    dispatch({
+      type: ADD_ITEM,
+      payload: res.data
+    })
+  );
+};
+
 // Must send id as a payload to the item reducer
 export const deleteItem = id => {
   return {
     type: DELETE_ITEM,
     payload: id
-  };
-};
-
-export const addItem = item => {
-  return {
-    type: ADD_ITEM,
-    payload: item
   };
 };
 
