@@ -4,7 +4,6 @@ import {
   DELETE_ITEM,
   ITEMS_LOADING
 } from '../actions/types';
-import uuid from 'uuid';
 // This is where our state will live.
 // Will be accessible through the provider as item.items
 // Will check our actions here
