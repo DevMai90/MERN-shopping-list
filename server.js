@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const items = require('./routes/api/items');
 
@@ -24,6 +25,17 @@ mongoose
 // Use Routes
 // This is saying that anything that uses the first parameter will refer to items variable
 app.use('/api/items', items);
+
+// Serve static assets if in production
+// If statement checks our node enviornment
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Need to run server. May deploy this to Heroku. Needs to add env.PORT
 const port = process.env.PORT || 5000;
